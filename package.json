@@ -1,0 +1,25 @@
+{
+  "name": "redis-namespace",
+  "version": "0.1.0",
+  "description": "Namespace Redis keys",
+  "main": "index.js",
+  "scripts": {
+    "test": "jshint *.js && mocha",
+    "get-redis-commands": "./scripts/get-redis-commands",
+    "prepublish": "npm run get-redis-commands"
+  },
+  "author": "Evan Solomon",
+  "license": "MIT",
+  "dependencies": {
+    "redis": "^0.12.1"
+  },
+  "devDependencies": {
+    "async": "^0.9.0",
+    "jshint": "^2.6.3",
+    "mocha": "^2.2.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/evansolomon/node-redis-namespace.git"
+  }
+}

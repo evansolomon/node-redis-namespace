@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+BUILD_DIR=".build"
+echo "Creating ${BUILD_DIR} directory"
+mkdir -p "${BUILD_DIR}"
+
+echo "Fetching redis commands JSON"
+curl -s "http://redis.io/commands.json" > "${BUILD_DIR}/redis-commands.json"
