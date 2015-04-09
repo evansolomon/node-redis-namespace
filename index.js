@@ -1,7 +1,7 @@
 var util = require('util')
 var redis = require('redis')
 
-var redisCommandsSpec = require('./.build/redis-commands.json')
+var redisCommandsSpec = require('./redis-commands.json')
 
 /**
  * Create a Redis client instance that namespaces keys.

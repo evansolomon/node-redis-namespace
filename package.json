@@ -4,9 +4,7 @@
   "description": "Namespace Redis keys",
   "main": "index.js",
   "scripts": {
-    "test": "jshint *.js && mocha",
-    "get-redis-commands": "./scripts/get-redis-commands",
-    "prepublish": "npm run get-redis-commands"
+    "test": "jshint *.js && mocha"
   },
   "author": "Evan Solomon",
   "license": "MIT",
