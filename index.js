@@ -1,5 +1,6 @@
 var util = require('util')
 var redis = require('redis')
+var parser = require('redis-argument-parser')
 
 var redisCommandsSpec = require('./redis-commands.json')
 
@@ -50,29 +51,20 @@ function bindCommand(client, command, spec, prefix) {
   var originalFunction = client[command]
   return function () {
       var args = Array.prototype.slice.call(arguments, 0)
-      var prefixedArgs = prefixKeyArgs(spec, prefix, args)
+      var nonFuncArgs = args.filter(function (arg) {
+        return typeof arg !== 'function'
+      })
+      var funcArgs = args.slice(nonFuncArgs.length)
+
+      var types = new parser.RedisCommand(command).parseInputs(nonFuncArgs)
+      var prefixedArgs = nonFuncArgs.map(function (arg, i) {
+        if (types[i] === 'key') {
+          return prefix + arg
+        } else {
+          return arg
+        }
+      }).concat(funcArgs)
+
       return originalFunction.apply(client, prefixedArgs)
     }
-}
-
-/**
- * Prefix arguments that are defined as keys in the Redis spec.
- */
-function prefixKeyArgs(spec, prefix, args) {
-  var argSpec = spec.arguments
-  if (! argSpec) return args
-
-  return args.map(function (arg, i) {
-    var argIsString = typeof arg === 'string'
-    var commandExists = !! argSpec[i]
-    var argIsKey = commandExists && argSpec[i].type === 'key'
-
-    var shouldPrefix = argIsString && argIsKey
-
-    if (shouldPrefix) {
-      arg = prefix + arg
-    }
-
-    return arg
-  })
 }

@@ -9,7 +9,8 @@
   "author": "Evan Solomon",
   "license": "MIT",
   "dependencies": {
-    "redis": "^0.12.1"
+    "redis": "^0.12.1",
+    "redis-argument-parser": "evansolomon/redis-argument-parser"
   },
   "devDependencies": {
     "async": "^0.9.0",
